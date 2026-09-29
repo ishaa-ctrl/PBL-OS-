@@ -1,7 +1,6 @@
 INTER-PROCESS COMMUNICATION (IPC)
 
 Part: Pipes 
-
 Written by: Safiyath Isha 
 
 
