@@ -2,11 +2,6 @@ INTER - PROCESSING COMMUNICATION(IPC)
 Part: Message Passing
 Written by: Ayman Khan
 
-
-
-
-
-
 Message Passing is an Inter-Process Communication (IPC):
 It is technique in which processes communicate and exchange data by sending and receiving messages. Unlike shared memory, processes do not need to access the same memory space. The operating system provides mechanisms for transferring messages between processes.
 
