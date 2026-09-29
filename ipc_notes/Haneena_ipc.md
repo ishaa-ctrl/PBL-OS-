@@ -1,6 +1,8 @@
 INTERPROCESS COMMUNICATION 
-PART : IPC Basics + Signals
-WRITTEN BY : Haneena Zohara
+
+PART : IPC Basics + Signals 
+
+WRITTEN BY : Haneena Zohara 
 
 1. What is IPC?
 
