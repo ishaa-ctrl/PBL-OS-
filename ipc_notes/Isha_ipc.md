@@ -35,11 +35,11 @@ One process writes data into the pipe, and the operating system temporarily stor
 5. Real-World Example:
 Example 1:- Linux Commands
 Pipes are commonly used in Linux commands using the `|` symbol.
-```text
+ ``text
 ls | grep ".txt"
 * Flow: ls → Pipe → grep
 
-Example 2:- Producer and Consumer
+Example 2:- Producer and Consumer.
 In a data-processing system, one process can produce data while another process processes it.
 * Producer Process → Pipe → Consumer Process
 The producer sends data through the pipe, and the consumer receives and processes it.
