@@ -1,4 +1,4 @@
-INTERPROCESS COMMUNICATION 
+INTERPROCESS COMMUNICATION (IPC)
 
 PART : IPC Basics + Signals 
 
@@ -10,7 +10,7 @@ Interprocess Communication (IPC) is a mechanism that allows two or more processe
 
 Each process normally has its own memory space. IPC provides methods that allow processes to share information and coordinate their activities.
 
-Common IPC techniques
+Common IPC techniques:
 
 Pipes
 
