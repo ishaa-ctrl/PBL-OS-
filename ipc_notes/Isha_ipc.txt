@@ -3,24 +3,23 @@ Part: Pipes
 Written by: Safiyath Isha 
 
 
-Pipes in Interprocess Communication: 
+1. Pipes in Interprocess Communication: 
 Interprocess Communication (IPC) allows processes to communicate and exchange data with each other. Since processes normally have separate memory spaces, IPC provides different methods for them to share information. Pipes are one of the simplest and commonly used techniques for IPC.
 
-
-What is a Pipe?
+2. What is a Pipe?
 A pipe is a communication channel that allows one process to send data to another process.
 The data is written into one end of the pipe and read from the other end.
 
 * Basic flow: Process A → Pipe → Process B
 
-Working of Pipes:
+3. Working of Pipes:
 A pipe has two ends-
 *  Write end: Used by a process to send data.
 *  Read end: Used by a process to receive data.
 
 One process writes data into the pipe, and the operating system temporarily stores the data. Another process can then read the data from the pipe. This allows processes to communicate without directly accessing each other's memory.
 
-Types of Pipes:
+4. Types of Pipes:
 * Anonymous Pipe : An anonymous pipe is mainly used for communication between related processes, such as a parent process and its child process.
 
 * Example:- Parent Process → Pipe → Child Process
@@ -33,7 +32,7 @@ Types of Pipes:
 
 * Named pipes are useful when independent processes need to communicate with each other.
 
-Real-World Example:
+5. Real-World Example:
 Example 1:- Linux Commands
 Pipes are commonly used in Linux commands using the `|` symbol.
 ```text
@@ -45,14 +44,14 @@ In a data-processing system, one process can produce data while another process 
 * Producer Process → Pipe → Consumer Process
 The producer sends data through the pipe, and the consumer receives and processes it.
 
-Advantages:
+6. Advantages:
 * Simple to use
 * Easy to implement
 * Fast for communication between local processes
 * Useful for transferring data between processes
 * Supported by major operating systems
 
-Disadvantages:
+7. Disadvantages:
 * Anonymous pipes are mainly used between related processes
 * Limited buffer capacity
 * Not suitable for complex communication
@@ -85,6 +84,6 @@ Here:
 * recv() receives the data.
 * Pipe() creates the communication channel.
 
-Conclusion: 
+8. Conclusion: 
 Pipes provide a simple and efficient way for processes to exchange data. They are especially useful for straightforward communication between processes running on the same computer.
 Anonymous pipes are mainly used between related processes, while named pipes can also be used by unrelated processes.
