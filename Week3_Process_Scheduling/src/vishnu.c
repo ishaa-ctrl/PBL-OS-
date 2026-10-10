@@ -1,4 +1,4 @@
-#include <string.h>
+#include<string.h>
 #include "scheduler.h"
 
 /* Add a segment to the Gantt chart */
@@ -204,4 +204,4 @@ void round_robin(const Process input[], int n, int quantum,
             queue[rear++] = current;
         }
     }
-}#
+}
