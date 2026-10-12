@@ -1,0 +1,21 @@
+# Compiled executables
+*.exe
+*.out
+scheduler
+
+# Object files
+*.o
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# IDE settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
