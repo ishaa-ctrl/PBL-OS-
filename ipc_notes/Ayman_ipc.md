@@ -1,5 +1,5 @@
 INTER - PROCESSING COMMUNICATION(IPC)
-Part: Message Passing
+Part: Message Passing + Message Queues 
 Written by: Ayman Khan
 
 Message Passing is an Inter-Process Communication (IPC):
