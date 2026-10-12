@@ -1,6 +1,6 @@
 INTERPROCESS COMMUNICATION (IPC)
 
-PART : IPC Basics + Signals 
+PART : IPC Basics + Signals and Sockets
 
 WRITTEN BY : Haneena Zohara 
 
@@ -157,3 +157,66 @@ In short:
 
 > IPC = Communication between processes
 Signal = Notification sent to a process
+
+What are Sockets?
+
+A socket is an endpoint that allows two processes to communicate and exchange data. Sockets support communication between processes on the same computer or on different computers connected through a network.
+
+Sockets are commonly used in client-server applications.
+
+How Sockets Work
+
+1. The server creates a socket and waits for connections.
+2. The client creates a socket and connects to the server.
+3. The client and server exchange data through their sockets.
+4. The connection is closed when communication is complete.
+
+Types of Sockets
+
+- Stream Sockets (TCP): Provide reliable, connection-oriented communication and deliver data in order.
+- Datagram Sockets (UDP): Provide connectionless communication without guaranteeing delivery or message order.
+
+Advantages of Sockets
+
+- Allow communication between processes on different computers.
+- Support two-way data exchange.
+- TCP provides reliable data transmission.
+- Useful for network applications.
+
+Disadvantages of Sockets
+
+- More complex to implement than basic pipes.
+- Network delays can affect communication.
+- Require proper error handling and connection management.
+
+Simple Example
+
+A client sends ""Hello Server"" to a server through a socket. The server receives the message and replies ""Hello Client"".
+
+Communication flow:
+
++----------------+
+| Client Process |
++----------------+
+        |
+        | Sends message
+        v
++----------------+
+| Socket         |
+| Communication |
++----------------+
+        |
+        | Receives message
+        v
++----------------+
+| Server Process |
++----------------+
+
+Real-World Applications
+
+- Web browsers and web servers
+- Chat applications
+- Online multiplayer games
+- Video conferencing
+- File transfer applications
+
