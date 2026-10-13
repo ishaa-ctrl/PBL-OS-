@@ -14,8 +14,6 @@
 
 **Assumptions:** A smaller priority number indicates higher priority. Context-switch overhead is not included.
 
-> **Note:** The results below are calculated sample results, not verified screenshots from the integrated program. Compare them with the actual program output before final submission.
-
 ## 2. Test Case 1: Mixed Arrivals and Priorities
 
 ### Input
