@@ -31,6 +31,9 @@ The simulator supports:
 ## 4. Project Structure
 
 ```text
+## Project Structure
+
+```text
 Week3_Process_Scheduling/
 ├── include/
 │   └── scheduler.h
@@ -44,10 +47,28 @@ Week3_Process_Scheduling/
 │   ├── test_ayman.c
 │   └── test_vishnu.c
 ├── docs/
-│   └── Week3_Process_Scheduling_Test_Results.md
+│   ├── Week3_Process_Scheduling_Test_Results.md
+│   └── output_screenshots/
+│       ├── TC1_FCFS.png
+│       ├── TC1_SJF.png
+│       ├── TC1_SRTF.png
+│       ├── TC1_PreemptivePriority.png
+│       ├── TC1_NonPreemptivePriority.png
+│       ├── TC1_RoundRobin.png
+│       └── ... (remaining test screenshots)
 ├── Makefile
 ├── .gitignore
 └── README.md
+```
+
+### Folder Description
+
+- **include/** – Contains the shared header file and scheduling declarations.
+- **src/** – Contains the main program and scheduling algorithm implementations.
+- **tests/** – Contains individual algorithm test programs.
+- **docs/** – Contains the test-results report and screenshots of actual program outputs.
+- **Makefile** – Contains commands for compiling the project.
+- **.gitignore** – Specifies generated and temporary files Git should ignore.
 ```
 
 ## 5. Technologies Used
