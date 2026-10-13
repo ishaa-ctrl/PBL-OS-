@@ -117,12 +117,3 @@ This case checks whether the simulator handles periods when no process is ready 
 - **Response Time (RT) = First Start Time - Arrival Time (AT)**
 - **CPU Utilization = (Total CPU Busy Time / Total Elapsed Schedule Time) × 100%**
 
-## 7. Final Verification Checklist
-
-- [ ] Compile the integrated program.
-- [ ] Test all six algorithms using the main menu.
-- [ ] Verify Gantt charts and all performance metrics.
-- [ ] Confirm CPU utilization is displayed if required by the project.
-- [ ] Capture actual program output for all three test cases.
-- [ ] Compare actual results with the sample calculations above.
-- [ ] Keep source code and test files in GitHub; do not upload compiled executable files as source code.
