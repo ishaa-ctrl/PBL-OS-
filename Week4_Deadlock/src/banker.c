@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "deadlock.h"
 
+
 /* Calculate Need = Maximum - Allocation */
 void calculateNeed(SystemState *state)
 {
@@ -63,6 +64,7 @@ int checkSafety(SystemState *state, int safeSequence[])
 
     return 1;
 }
+
 
 /* Request resources for a process.
    1 = granted, 0 = denied, -1 = invalid request */
