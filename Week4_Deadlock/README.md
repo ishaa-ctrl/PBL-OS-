@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # Interactive Deadlock Simulation System
 
 ## Overview
@@ -68,3 +69,6 @@ Enter the number of processes, resource types, allocation matrix, maximum demand
 
 The console simulation has been executed and its output captured. GUI functionality should be verified separately.
 
+=======
+
+>>>>>>> Stashed changes
