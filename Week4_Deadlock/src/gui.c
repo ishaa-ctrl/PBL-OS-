@@ -1,33 +1,33 @@
 //Vishnu
 
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
 #include "deadlock.h"
 
-#define ID_SAFETY     101
-#define ID_DETECT     102
-#define ID_RECOVER    103
-#define ID_REQUEST    104
-#define ID_STATUS     105
-#define ID_RAG        106
-#define ID_UTIL       107
+#define ID_SAFETY 101
+#define ID_DETECT 102
+#define ID_RECOVER 103
+#define ID_REQUEST 104
+#define ID_STATUS 105
+#define ID_RAG 106
+#define ID_UTIL 107
 
 static HWND outputBox;
 static SystemState *currentState;
 
 static void showMessage(const char *message)
 {
-    if (outputBox != NULL) {
+    if (outputBox != NULL)
         SetWindowTextA(outputBox, message);
-    }
 }
 
 static void addMessage(const char *message)
 {
-    char oldText[12000];
-    char newText[14000];
+    char oldText[12000] = {0};
+    char newText[14000] = {0};
 
     GetWindowTextA(outputBox, oldText, sizeof(oldText));
     snprintf(newText, sizeof(newText), "%s\n%s", oldText, message);
@@ -36,60 +36,52 @@ static void addMessage(const char *message)
 
 void initializeGUI(void)
 {
-    /* The native Windows window is initialized in runGUI(). */
 }
 
 void displaySystemStatus(SystemState *state)
 {
-    char text[12000];
+    char text[12000] = {0};
     size_t used = 0;
 
-    used += snprintf(text + used, sizeof(text) - used,
-                     "DEADLOCK SIMULATION SYSTEM\n\n"
-                     "Processes: %d\nResources: %d\n\n"
-                     "Available resources:\n",
-                     state->processCount, state->resourceCount);
+    calculateNeed(state);
 
-    for (int j = 0; j < state->resourceCount && used < sizeof(text); j++) {
+    used += snprintf(text + used, sizeof(text) - used,
+        "DEADLOCK SIMULATION SYSTEM\n\nProcesses: %d\nResources: %d\n\n"
+        "AVAILABLE RESOURCES\n",
+        state->processCount, state->resourceCount);
+
+    for (int j = 0; j < state->resourceCount && used < sizeof(text); j++)
         used += snprintf(text + used, sizeof(text) - used,
                          "R%d: %d\n", j, state->available[j]);
-    }
-
-    calculateNeed(state);
 
     used += snprintf(text + used, sizeof(text) - used,
                      "\nALLOCATION MATRIX\n");
 
     for (int i = 0; i < state->processCount && used < sizeof(text); i++) {
         used += snprintf(text + used, sizeof(text) - used, "P%d: ", i);
-        for (int j = 0; j < state->resourceCount && used < sizeof(text); j++) {
+        for (int j = 0; j < state->resourceCount && used < sizeof(text); j++)
             used += snprintf(text + used, sizeof(text) - used,
                              "%d ", state->allocation[i][j]);
-        }
         used += snprintf(text + used, sizeof(text) - used, "\n");
     }
 
-    used += snprintf(text + used, sizeof(text) - used,
-                     "\nMAXIMUM MATRIX\n");
+    used += snprintf(text + used, sizeof(text) - used, "\nMAXIMUM MATRIX\n");
 
     for (int i = 0; i < state->processCount && used < sizeof(text); i++) {
         used += snprintf(text + used, sizeof(text) - used, "P%d: ", i);
-        for (int j = 0; j < state->resourceCount && used < sizeof(text); j++) {
+        for (int j = 0; j < state->resourceCount && used < sizeof(text); j++)
             used += snprintf(text + used, sizeof(text) - used,
                              "%d ", state->maximum[i][j]);
-        }
         used += snprintf(text + used, sizeof(text) - used, "\n");
     }
 
-    used += snprintf(text + used, sizeof(text) - used,
-                     "\nNEED MATRIX\n");
+    used += snprintf(text + used, sizeof(text) - used, "\nNEED MATRIX\n");
 
     for (int i = 0; i < state->processCount && used < sizeof(text); i++) {
         used += snprintf(text + used, sizeof(text) - used, "P%d: ", i);
-        for (int j = 0; j < state->resourceCount && used < sizeof(text); j++) {
+        for (int j = 0; j < state->resourceCount && used < sizeof(text); j++)
             used += snprintf(text + used, sizeof(text) - used,
                              "%d ", state->need[i][j]);
-        }
         used += snprintf(text + used, sizeof(text) - used, "\n");
     }
 
@@ -135,37 +127,31 @@ static LRESULT CALLBACK WindowProcedure(
             WS_EX_CLIENTEDGE, "EDIT", "",
             WS_VISIBLE | WS_CHILD | WS_VSCROLL |
             ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY,
-            20, 155, 600, 330,
-            window, NULL, NULL, NULL);
+            20, 155, 600, 330, window, NULL, NULL, NULL);
 
         displaySystemStatus(currentState);
         return 0;
 
     case WM_COMMAND:
-        if (!currentState || !outputBox) {
+        if (!currentState || !outputBox)
             return 0;
-        }
 
         switch (LOWORD(wParam)) {
         case ID_SAFETY: {
             int sequence[MAX_PROCESSES];
-            char result[2000];
+            char result[2000] = {0};
             size_t used = 0;
 
             if (checkSafety(currentState, sequence)) {
                 used += snprintf(result + used, sizeof(result) - used,
                                  "System state: SAFE\nSafe sequence: ");
-
-                for (int i = 0; i < currentState->processCount; i++) {
+                for (int i = 0; i < currentState->processCount; i++)
                     used += snprintf(result + used, sizeof(result) - used,
-                                     "P%d%s", sequence[i],
-                                     i + 1 == currentState->processCount
-                                         ? "\n" : " -> ");
-                }
+                        "P%d%s", sequence[i],
+                        i + 1 == currentState->processCount ? "\n" : " -> ");
             } else {
                 snprintf(result, sizeof(result),
-                         "System state: UNSAFE\n"
-                         "No safe sequence exists for the current state.");
+                         "System state: UNSAFE\nNo safe sequence exists.");
             }
 
             showMessage(result);
@@ -175,7 +161,7 @@ static LRESULT CALLBACK WindowProcedure(
         case ID_DETECT: {
             int deadlocked[MAX_PROCESSES];
             int count = detectDeadlock(currentState, deadlocked);
-            char result[2000];
+            char result[2000] = {0};
             size_t used = 0;
 
             if (count == 0) {
@@ -184,11 +170,9 @@ static LRESULT CALLBACK WindowProcedure(
             } else {
                 used += snprintf(result + used, sizeof(result) - used,
                                  "DEADLOCKED PROCESSES:\n");
-
-                for (int i = 0; i < count && used < sizeof(result); i++) {
+                for (int i = 0; i < count && used < sizeof(result); i++)
                     used += snprintf(result + used, sizeof(result) - used,
                                      "P%d\n", deadlocked[i]);
-                }
             }
 
             showMessage(result);
@@ -200,29 +184,27 @@ static LRESULT CALLBACK WindowProcedure(
                 displaySystemStatus(currentState);
                 addMessage("Recovery performed on P0.");
             } else {
-                showMessage("Recovery failed: invalid process.");
+                showMessage("Recovery failed for P0.");
             }
             break;
 
         case ID_REQUEST: {
             int request[MAX_RESOURCES] = {0};
 
-            if (currentState->resourceCount == 0 ||
-                currentState->processCount == 0) {
-                showMessage("No processes or resources are configured.");
+            if (currentState->resourceCount < 1 ||
+                currentState->processCount < 1) {
+                showMessage("No processes or resources configured.");
                 break;
             }
 
             request[0] = 1;
-
             int result = requestResources(currentState, 0, request);
 
             if (result == 1) {
                 displaySystemStatus(currentState);
-                addMessage("Request granted to P0 for one unit of R0.");
+                addMessage("Request granted: P0 received one unit of R0.");
             } else if (result == 0) {
-                showMessage("Request denied: unavailable resources "
-                            "or unsafe resulting state.");
+                showMessage("Request denied: insufficient resources or unsafe state.");
             } else {
                 showMessage("Invalid resource request.");
             }
@@ -233,14 +215,47 @@ static LRESULT CALLBACK WindowProcedure(
             displaySystemStatus(currentState);
             break;
 
-        case ID_RAG:
-            displayRAG(currentState);
-            showMessage("RAG drawing function called. "
-                        "The graph must be rendered by the RAG module.");
+        case ID_RAG: {
+            char result[12000] = {0};
+            size_t used = 0;
+
+            used += snprintf(result + used, sizeof(result) - used,
+                             "RESOURCE ALLOCATION GRAPH\n\n"
+                             "R -> P means resource allocated to process.\n"
+                             "P -> R means process requesting resource.\n\n");
+
+            int edges = 0;
+            for (int i = 0; i < currentState->processCount; i++) {
+                for (int j = 0; j < currentState->resourceCount; j++) {
+                    if (currentState->allocation[i][j] > 0) {
+                        used += snprintf(result + used, sizeof(result) - used,
+                            "R%d -> P%d (allocated: %d)\n", j, i,
+                            currentState->allocation[i][j]);
+                        edges++;
+                    }
+                    if (currentState->request[i][j] > 0) {
+                        used += snprintf(result + used, sizeof(result) - used,
+                            "P%d -> R%d (requested: %d)\n", i, j,
+                            currentState->request[i][j]);
+                        edges++;
+                    }
+                    if (used >= sizeof(result) - 100)
+                        break;
+                }
+                if (used >= sizeof(result) - 100)
+                    break;
+            }
+
+            if (edges == 0)
+                used += snprintf(result + used, sizeof(result) - used,
+                                 "No allocation or request edges currently exist.\n");
+
+            showMessage(result);
             break;
+        }
 
         case ID_UTIL: {
-            char result[2000];
+            char result[2000] = {0};
             size_t used = 0;
 
             used += snprintf(result + used, sizeof(result) - used,
@@ -248,28 +263,22 @@ static LRESULT CALLBACK WindowProcedure(
 
             for (int j = 0; j < currentState->resourceCount &&
                             used < sizeof(result); j++) {
-                int total = currentState->available[j];
                 int allocated = 0;
-
-                for (int i = 0; i < currentState->processCount; i++) {
+                for (int i = 0; i < currentState->processCount; i++)
                     allocated += currentState->allocation[i][j];
-                }
 
-                total += allocated;
-
-                double percent = total > 0
-                    ? 100.0 * allocated / total : 0.0;
+                int total = allocated + currentState->available[j];
+                double percent = total > 0 ? 100.0 * allocated / total : 0.0;
 
                 used += snprintf(result + used, sizeof(result) - used,
-                                 "R%d: %d/%d allocated (%.1f%%)\n",
-                                 j, allocated, total, percent);
+                    "R%d: %d/%d allocated (%.1f%%)\n",
+                    j, allocated, total, percent);
             }
 
             showMessage(result);
             break;
         }
         }
-
         return 0;
 
     case WM_DESTROY:
@@ -285,8 +294,8 @@ void runGUI(SystemState *state)
     currentState = state;
 
     HINSTANCE instance = GetModuleHandleA(NULL);
-
     WNDCLASSA wc = {0};
+
     wc.lpfnWndProc = WindowProcedure;
     wc.hInstance = instance;
     wc.lpszClassName = "DeadlockSimulationWindow";
