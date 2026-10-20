@@ -29,6 +29,13 @@ The Interactive Deadlock Simulation System demonstrates resource allocation, dea
 - Resource utilization analysis.
 - Graphical interface for interacting with the simulation.
 
+  ## Team Contributions
+
+- **Haneena:** Implemented Banker's Algorithm in `src/banker.c`, including safety checking, safe sequence generation, and resource request handling.
+- **Ayman:** Implemented deadlock detection and recovery in `src/detection.c`.
+- **Vishnu:** Developed the graphical user interface (GUI) in `src/gui.c`.
+- **Isha:** Led project integration and worked on Resource Allocation Graph visualization, resource utilization, testing, and documentation in `src/rag.c` and `src/main.c`.
+
 ## 4. Technologies Used
 
 - Programming Language: C
