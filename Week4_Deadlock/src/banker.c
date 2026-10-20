@@ -3,111 +3,98 @@
 #include <stdio.h>
 #include "deadlock.h"
 
-
-/* Calculate Need = Maximum - Allocation */
 void calculateNeed(SystemState *state)
 {
     for (int i = 0; i < state->processCount; i++) {
         for (int j = 0; j < state->resourceCount; j++) {
             state->need[i][j] =
-                state->maximum[i][j] -
-                state->allocation[i][j];
+                state->maximum[i][j] - state->allocation[i][j];
         }
     }
 }
 
-/* Return 1 if safe, otherwise 0 */
 int checkSafety(SystemState *state, int safeSequence[])
 {
     int work[MAX_RESOURCES];
     int finish[MAX_PROCESSES] = {0};
-    int count = 0;
-
-    for (int j = 0; j < state->resourceCount; j++) {
-        work[j] = state->available[j];
-    }
 
     calculateNeed(state);
 
-    while (count < state->processCount) {
+    for (int j = 0; j < state->resourceCount; j++)
+        work[j] = state->available[j];
+
+    int completed = 0;
+
+    while (completed < state->processCount) {
         int found = 0;
 
         for (int i = 0; i < state->processCount; i++) {
-            if (finish[i]) {
+            if (finish[i])
                 continue;
-            }
 
-            int possible = 1;
+            int canFinish = 1;
 
             for (int j = 0; j < state->resourceCount; j++) {
                 if (state->need[i][j] > work[j]) {
-                    possible = 0;
+                    canFinish = 0;
                     break;
                 }
             }
 
-            if (possible) {
-                for (int j = 0; j < state->resourceCount; j++) {
+            if (canFinish) {
+                for (int j = 0; j < state->resourceCount; j++)
                     work[j] += state->allocation[i][j];
-                }
 
-                safeSequence[count++] = i;
+                safeSequence[completed++] = i;
                 finish[i] = 1;
                 found = 1;
             }
         }
 
-        if (!found) {
+        if (!found)
             return 0;
-        }
     }
 
     return 1;
 }
 
-
-/* Request resources for a process.
-   1 = granted, 0 = denied, -1 = invalid request */
-int requestResources(
-    SystemState *state,
-    int processId,
-    const int request[])
+/* Returns 1 = granted, 0 = denied, -1 = invalid request. */
+int requestResources(SystemState *state, int processId,
+                     const int request[])
 {
-    if (processId < 0 || processId >= state->processCount) {
+    if (state == NULL || request == NULL ||
+        processId < 0 || processId >= state->processCount)
         return -1;
-    }
+
+    calculateNeed(state);
 
     for (int j = 0; j < state->resourceCount; j++) {
         if (request[j] < 0 ||
-            request[j] > state->need[processId][j]) {
+            request[j] > state->need[processId][j])
             return -1;
-        }
 
-        if (request[j] > state->available[j]) {
+        if (request[j] > state->available[j])
             return 0;
-        }
     }
 
-    /* Temporarily allocate the requested resources */
+    /* Temporarily grant the request. */
     for (int j = 0; j < state->resourceCount; j++) {
         state->available[j] -= request[j];
         state->allocation[processId][j] += request[j];
+        state->need[processId][j] -= request[j];
     }
 
-    calculateNeed(state);
+    int sequence[MAX_PROCESSES];
 
-    int safeSequence[MAX_PROCESSES];
-
-    if (checkSafety(state, safeSequence)) {
+    if (checkSafety(state, sequence))
         return 1;
-    }
 
-    /* Unsafe state: roll back the allocation */
+    /* Roll back if the new state is unsafe. */
     for (int j = 0; j < state->resourceCount; j++) {
         state->available[j] += request[j];
         state->allocation[processId][j] -= request[j];
+        state->need[processId][j] += request[j];
     }
 
-    calculateNeed(state);
     return 0;
 }
