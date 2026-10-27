@@ -45,4 +45,11 @@ void simulate_optimal(
     SimulationResult *result
 );
 
+void display_statistics(const char *name,
+                        const SimulationResult *result);
+
+void compare_algorithms(const SimulationResult *fifo,
+                        const SimulationResult *lru,
+                        const SimulationResult *optimal);
+
 #endif
