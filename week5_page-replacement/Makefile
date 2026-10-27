@@ -18,7 +18,7 @@ run: $(TARGET)
 gui: $(GUI_TARGET)
 
 $(GUI_TARGET): src/gui.c src/fifo.c src/lru.c src/optimal.c include/common.h
-	$(CC) $(CFLAGS) -mwindows src/gui.c src/fifo.c src/lru.c src/optimal.c -o $(GUI_TARGET)
+	$(CC) $(CFLAGS) -mwindows src/gui.c src/fifo.c src/lru.c src/optimal.c -o $(GUI_TARGET) -lcomctl32
 
 test: test_fifo.exe test_lru.exe test_optimal.exe
 	./test_fifo.exe
