@@ -83,7 +83,7 @@ int main(void)
         return 1;
     }
 
-    SimulationResult results[3];
+    static SimulationResult results[3];
     const char *names[] = {"FIFO", "LRU", "Optimal"};
 
     if (choice == 1 || choice == 4)
