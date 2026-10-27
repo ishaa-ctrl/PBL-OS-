@@ -1,1 +1,9 @@
+# Compiled programs and object files
+*.exe
+*.o
+*.out
 
+# Editors
+.vscode/
+.idea/
+*.swp
