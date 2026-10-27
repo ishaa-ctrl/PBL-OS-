@@ -64,7 +64,7 @@ static void run_comparison(void)
 {
     char page_text[8192], frame_text[32];
     int pages[MAX_REFERENCES];
-    SimulationResult results[3];
+    static SimulationResult results[3];
     char output[60000] = "";
     GetWindowTextA(hPages, page_text, (int)sizeof(page_text));
     GetWindowTextA(hFrames, frame_text, (int)sizeof(frame_text));
