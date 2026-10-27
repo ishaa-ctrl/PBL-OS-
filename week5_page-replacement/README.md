@@ -22,30 +22,57 @@ A C-based simulator and comparative analysis of three operating-system page repl
 GCC and GNU Make. The GUI target requires a Windows/MSYS2 GCC toolchain.
 
 ## Build the console simulator
-From this directory, run: make
+From this directory, run:
 
-This creates simulator.exe.
+```sh
+make
+```
+
+This creates `simulator.exe`.
 
 ## Run the console simulator
-Run: ./simulator.exe
+Run:
+
+```sh
+./simulator.exe
+```
 
 ## Build and run the GUI on Windows
-Run: make gui
-Then run: ./simulator_gui.exe
+Build the GUI from this directory:
 
-The GUI accepts page numbers separated by spaces or commas and a frame count. Click “Compare FIFO, LRU and Optimal” to display frame-by-frame results and summary statistics.
+```sh
+make gui
+```
+
+Then launch it:
+
+```sh
+./simulator_gui.exe
+```
+
+In the GUI, enter page numbers separated by spaces or commas and set the frame count. Choose **Compare All** in the algorithm dropdown to show the step-by-step results for FIFO, LRU, and Optimal together, or select one algorithm to focus on its results. Click **Run Simulation** to run the selected option. The GUI also displays a page-fault chart and quick statistics. Click **Reset** to restore the default inputs.
 
 ## Run tests
-Run: make test
+Run:
+
+```sh
+make test
+```
+
+The test suite builds and runs the FIFO, LRU, and Optimal tests.
 
 ## Sample comparison input
 For the console program, enter these values when prompted:
+
+```text
 13
 7 0 1 2 0 3 0 4 2 3 0 3 2
 3
 4
+```
 
 Expected results:
+
 | Algorithm | Hits | Faults | Hit ratio | Fault ratio |
 |---|---:|---:|---:|---:|
 | FIFO | 3 | 10 | 23.08% | 76.92% |
@@ -53,9 +80,10 @@ Expected results:
 | Optimal | 6 | 7 | 46.15% | 53.85% |
 
 ## Documentation
-- Algorithm explanation: docs/algorithm_explaination.md
-- Project report: docs/project_report.md
-- Test cases: tests/test_cases.txt
+- Algorithm explanation: `docs/algorithm_explaination.md`
+- Project report: `docs/project_report.md`
+- Test cases: `tests/test_cases.txt`
+- Screenshot guidance: `docs/screenshots/README.md`
 
 ## Validation note
-The console implementation and GUI source are included. Build and run the GUI on the target Windows environment before presenting it as verified. Store actual screenshots in docs/screenshots/.
+The console implementation and GUI source are included. Build and run the GUI on the target Windows environment before presenting it as verified. Store actual screenshots in `docs/screenshots/`.
