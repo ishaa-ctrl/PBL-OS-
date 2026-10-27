@@ -1,1 +1,24 @@
+Test case 1: Standard comparison
+Number of references: 13
+Page reference string: 7 0 1 2 0 3 0 4 2 3 0 3 2
+Number of frames: 3
+Expected results:
+- FIFO: 10 page faults, 3 page hits
+- LRU: 9 page faults, 4 page hits
+- Optimal: 7 page faults, 6 page hits
 
+Console input (choose option 4 to compare):
+13
+7 0 1 2 0 3 0 4 2 3 0 3 2
+3
+4
+
+Test case 2: One frame
+References: 1 2 1 3 1
+Frames: 1
+Expected behavior: program completes and reports hits and faults.
+
+Test case 3: Repeated page
+References: 4 4 4 4 4
+Frames: 2
+Expected behavior: first reference is a fault; remaining four are hits.
