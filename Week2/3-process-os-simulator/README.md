@@ -261,3 +261,46 @@ The integration includes:
 The project demonstrates a three-process operating-system simulator using POSIX Named Pipes for Inter-Process Communication.
 The final system separates the user interface, core simulation and logging functionality into independent processes while allowing them to communicate through FIFO channels.
 
+## Additional IPC Implementations
+
+Apart from POSIX Named Pipes (FIFO) used in the three-process simulator, the project includes separate implementations of six additional IPC mechanisms using C on Linux.
+
+### Implemented IPC Techniques
+
+| No. | IPC Technique | Implementation |
+|---|---|---|
+| 1 | Ordinary Pipes | Parent-child process communication |
+| 2 | Named Pipes (FIFO) | UI-Core-Logger communication |
+| 3 | Message Queues | Message exchange using System V IPC |
+| 4 | Shared Memory | Data sharing between processes |
+| 5 | Semaphores | Process synchronization |
+| 6 | Signals | Process event notification |
+| 7 | Sockets | Client-server communication using TCP |
+
+### Additional Implementation Structure
+
+All additional implementations are maintained separately inside the `ipc_implementations/` directory.
+
+Each technique has its own source files and can be compiled and executed independently.
+
+### Team Allocation
+
+| Member | Responsibility |
+|---|---|
+| Isha | Shared Memory and Semaphores |
+| Haneena | Message Queues |
+| Ayman | Ordinary Pipes and Signals |
+| Vishnu | Sockets |
+
+### Testing
+
+Each IPC implementation is tested independently.
+
+Testing includes:
+- Successful communication between processes.
+- Correct data transmission and reception.
+- Process synchronization where required.
+- Successful compilation and execution.
+
+Screenshots and test results are maintained as part of the project documentation.
+
