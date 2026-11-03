@@ -1099,7 +1099,3 @@ Overall, this PBL activity helped translate theoretical Operating System concept
 | Safiyath Isha | Team Leadership, Integration, Shared Memory, Semaphores, Main Program Development, RAG, Resource Utilization, Testing, Benchmarking and Documentation |
 
 ---
-
-**Project Repository:** Add the team's GitHub repository URL here.
-
-**Documentation:** This README describes the overall five-week project, its concepts, implementations, team responsibilities, and testing activities.
